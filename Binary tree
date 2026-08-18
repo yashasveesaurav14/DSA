@@ -1,0 +1,72 @@
+#include <iostream>
+using namespace std;
+
+struct Node
+{
+    int data;
+    Node *left, *right;
+};
+
+Node* create(int value)
+{
+    if (value == -1)
+        return NULL;
+
+    Node* temp = new Node;
+    temp->data = value;
+
+    cout << "Enter left child of " << value << ": ";
+    int x;
+    cin >> x;
+    temp->left = create(x);
+
+    cout << "Enter right child of " << value << ": ";
+    cin >> x;
+    temp->right = create(x);
+
+    return temp;
+}
+
+void inorder(Node* root)
+{
+    if (root == NULL) return;
+    inorder(root->left);
+    cout << root->data << " ";
+    inorder(root->right);
+}
+
+void preorder(Node* root)
+{
+    if (root == NULL) return;
+    cout << root->data << " ";
+    preorder(root->left);
+    preorder(root->right);
+}
+
+void postorder(Node* root)
+{
+    if (root == NULL) return;
+    postorder(root->left);
+    postorder(root->right);
+    cout << root->data << " ";
+}
+
+int main()
+{
+    int value;
+    cout << "Enter root value: ";
+    cin >> value;
+
+    Node* root = create(value);
+
+    cout << "Inorder: ";
+    inorder(root);
+
+    cout << "\nPreorder: ";
+    preorder(root);
+
+    cout << "\nPostorder: ";
+    postorder(root);
+
+    return 0;
+}
